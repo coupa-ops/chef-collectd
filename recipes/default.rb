@@ -18,7 +18,7 @@
 #
 
 package "collectd" do
-  package_name "collectd-core"
+  package_name "collectd"
 end
 
 service "collectd" do
