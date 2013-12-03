@@ -19,14 +19,8 @@
 
 
 define :collectd_plugin, :options => {}, :template => nil, :cookbook => nil do
-if node[:platform] == 'ubuntu'
-  plugin_directory = "/etc/collectd/plugins"
-else
-  plugin_directory = "/etc/collectd"
-end
 
-
-  template "#{plugin_directory}/#{params[:name]}.conf" do
+  template "#{node[:collectd][:default_plugin_dir]}/#{params[:name]}.conf" do
     owner "root"
     group "root"
     mode "644"
@@ -45,7 +39,7 @@ end
 define :collectd_python_plugin, :options => {}, :module => nil, :path => nil do
 
   begin
-    t = resources(:template => "#{plugin_directory}/python.conf")
+    t = resources(:template => "#{node[:collectd][:default_plugin_dir]}/python.conf")
   rescue ArgumentError,Chef::Exceptions::ResourceNotFound
     collectd_plugin "python" do
       options :paths=>[node[:collectd][:plugin_dir]], :modules=>{}

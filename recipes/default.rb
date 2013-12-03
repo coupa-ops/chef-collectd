@@ -34,12 +34,12 @@ directory "/etc/collectd" do
 end
 
 if node[:platform] == 'ubuntu' 
-  plugin_directory = "/etc/collectd/plugins"
+  node.default[:collectd][:default_plugin_dir]  = "/etc/collectd/plugins"
 else
-  plugin_directory = "/etc/collectd"
+  node.default[:collectd][:default_plugin_dir]  = "/etc/collectd.d"
 end
 
-directory plugin_directory do
+directory node[:collectd][:default_plugin_dir]  do
   owner "root"
   group "root"
   mode "755"
