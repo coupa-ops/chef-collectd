@@ -17,8 +17,16 @@
 # limitations under the License.
 #
 
+
 define :collectd_plugin, :options => {}, :template => nil, :cookbook => nil do
-  template "/etc/collectd/plugins/#{params[:name]}.conf" do
+if node[:platform] == 'ubuntu'
+  plugin_directory = "/etc/collectd/plugins"
+else
+  plugin_directory = "/etc/collectd"
+end
+
+
+  template "#{plugin_directory}/#{params[:name]}.conf" do
     owner "root"
     group "root"
     mode "644"
@@ -35,8 +43,9 @@ define :collectd_plugin, :options => {}, :template => nil, :cookbook => nil do
 end
 
 define :collectd_python_plugin, :options => {}, :module => nil, :path => nil do
+
   begin
-    t = resources(:template => "/etc/collectd/plugins/python.conf")
+    t = resources(:template => "#{plugin_directory}/python.conf")
   rescue ArgumentError,Chef::Exceptions::ResourceNotFound
     collectd_plugin "python" do
       options :paths=>[node[:collectd][:plugin_dir]], :modules=>{}

@@ -17,6 +17,8 @@
 # limitations under the License.
 #
 
+package "collectd-rrdtool" if node[:platform] != 'ubuntu'
+
 package "collectd" do
   package_name "collectd"
 end
@@ -31,7 +33,13 @@ directory "/etc/collectd" do
   mode "755"
 end
 
-directory "/etc/collectd/plugins" do
+if node[:platform] == 'ubuntu' 
+  plugin_directory = "/etc/collectd/plugins"
+else
+  plugin_directory = "/etc/collectd"
+end
+
+directory plugin_directory do
   owner "root"
   group "root"
   mode "755"
