@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-package "collectd-rrdtool" if node[:platform] != 'ubuntu'
+package "collectd-rrdtool" if platform_family?("rhel") 
 
 package "collectd" do
   package_name "collectd"
@@ -33,10 +33,12 @@ directory "/etc/collectd" do
   mode "755"
 end
 
-if node[:platform] == 'ubuntu' 
+if    platform_family?("debian")
   node.default[:collectd][:default_plugin_dir]  = "/etc/collectd/plugins"
-else
+elsif platform_family?("rhel")
   node.default[:collectd][:default_plugin_dir]  = "/etc/collectd.d"
+elsif
+  raise "Can not detect platform family"
 end
 
 directory node[:collectd][:default_plugin_dir]  do
