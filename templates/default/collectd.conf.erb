@@ -7,12 +7,12 @@
 # enabling any more plugins.
 
 Hostname "<%= @node[:fqdn] %>"
-FQDNLookup true
-BaseDir "<%= @node[:collectd][:base_dir] %>"
-PluginDir "<%= @node[:collectd][:plugin_dir] %>"
+#FQDNLookup true
+#BaseDir "<%= @node[:collectd][:base_dir] %>"
+#PluginDir "<%= @node[:collectd][:plugin_dir] %>"
 TypesDB "<%= @node[:collectd][:types_db].join('", "') %>"
 Interval <%= @node[:collectd][:interval] %>
 ReadThreads <%= @node[:collectd][:read_threads] %>
 
 Include "<%= @node[:collectd][:default_plugin_dir] + "/*.conf" %>"
-Include "/etc/collectd/thresholds.conf"
+Include "<%= @node[:collectd][:conf_dir] + "/thresholds.conf" %>"
