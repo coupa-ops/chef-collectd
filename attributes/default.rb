@@ -17,6 +17,7 @@
 # limitations under the License.
 #
 
+default[:collectd][:fqdn] = ""
 default[:collectd][:base_dir] = "/var/lib/collectd"
 default[:collectd][:plugin_dir] = "/usr/lib/collectd"
 default[:collectd][:types_db] = ["/usr/share/collectd/types.db"]
