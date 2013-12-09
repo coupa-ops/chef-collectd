@@ -7,9 +7,9 @@
 # enabling any more plugins.
 
 Hostname "<%= @node[:collectd][:fqdn] %>"
-#FQDNLookup true
-#BaseDir "<%= @node[:collectd][:base_dir] %>"
-#PluginDir "<%= @node[:collectd][:plugin_dir] %>"
+FQDNLookup true
+BaseDir "<%= @node[:collectd][:base_dir] %>"
+PluginDir "<%= @node[:collectd][:plugin_dir] %>"
 TypesDB "<%= @node[:collectd][:types_db].join('", "') %>"
 Interval <%= @node[:collectd][:interval] %>
 ReadThreads <%= @node[:collectd][:read_threads] %>
