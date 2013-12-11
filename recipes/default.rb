@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-if    platform_family?("debian")
+if platform_family?("debian")
   node.default[:collectd][:conf_dir]            = "/etc/collectd"
   node.default[:collectd][:plugin_dir]          = "/usr/lib/collectd"
   node.default[:collectd][:default_plugin_dir]  = "/etc/collectd/plugins"
@@ -25,7 +25,7 @@ elsif platform_family?("rhel")
   node.default[:collectd][:conf_dir]            = "/etc"
   node.default[:collectd][:plugin_dir]          = "/usr/lib64/collectd"
   node.default[:collectd][:default_plugin_dir]  = "/etc/collectd.d"
-elsif
+else
   raise "Can not detect platform family"
 end
 
@@ -66,11 +66,11 @@ directory node[:collectd][:plugin_dir] do
 end
 
 template "#{node[:collectd][:conf_dir]}/collectd.conf" do
-    source "collectd.conf.erb"
-    owner "root"
-    group "root"
-    mode "644"
-    notifies :restart, resources(:service => "collectd")
+  source "collectd.conf.erb"
+  owner "root"
+  group "root"
+  mode "644"
+  notifies :restart, resources(:service => "collectd")
 end
 
 
