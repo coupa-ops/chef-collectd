@@ -65,16 +65,16 @@ directory node[:collectd][:plugin_dir] do
   recursive true
 end
 
-template "#{node[:collectd][:conf_dir]}/collectd.conf" do
-  source "collectd.conf.erb"
-  owner "root"
-  group "root"
-  mode "644"
-  notifies :restart, resources(:service => "collectd")
-end
+#template "#{node[:collectd][:conf_dir]}/collectd.conf" do
+#  source "collectd.conf.erb"
+#  owner "root"
+#  group "root"
+#  mode "644"
+#  notifies :restart, resources(:service => "collectd")
+#end
 
 
-%w(collection thresholds).each do |file|
+%w(collectd collection thresholds).each do |file|
   template "#{node[:collectd][:conf_dir]}/#{file}.conf" do
     source "#{file}.conf.erb"
     owner "root"

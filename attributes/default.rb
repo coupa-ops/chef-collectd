@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-default[:collectd][:fqdn] = ""
+default[:collectd][:fqdn] = node[:fqdn] 
 default[:collectd][:base_dir] = "/var/lib/collectd"
 default[:collectd][:plugin_dir] = ""
 default[:collectd][:types_db] = ["/usr/share/collectd/types.db"]
@@ -27,5 +27,5 @@ default[:collectd][:read_threads] = 5
 default[:collectd][:collectd_web][:path] = "/srv/collectd_web"
 default[:collectd][:collectd_web][:hostname] = "collectd"
 
-default[:collectd][:conf_dir] = ""
-default[:collectd][:default_plugin_dir] = ""
+default[:collectd][:conf_dir] = nil
+default[:collectd][:default_plugin_dir] = nil
