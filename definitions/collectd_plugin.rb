@@ -7,9 +7,9 @@
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# 
+#
 #     http://www.apache.org/licenses/LICENSE-2.0
-# 
+#
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -17,8 +17,9 @@
 # limitations under the License.
 #
 
+
 define :collectd_plugin, :options => {}, :template => nil, :cookbook => nil do
-  template "/etc/collectd/plugins/#{params[:name]}.conf" do
+  template "#{node[:collectd][:plugin_conf_dir]}/#{params[:name]}.conf" do
     owner "root"
     group "root"
     mode "644"
@@ -36,7 +37,7 @@ end
 
 define :collectd_python_plugin, :options => {}, :module => nil, :path => nil do
   begin
-    t = resources(:template => "/etc/collectd/plugins/python.conf")
+    t = resources(:template => "#{node[:collectd][:plugin_conf_dir]}/python.conf")
   rescue ArgumentError,Chef::Exceptions::ResourceNotFound
     collectd_plugin "python" do
       options :paths=>[node[:collectd][:plugin_dir]], :modules=>{}
