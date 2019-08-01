@@ -1,0 +1,23 @@
+---
+driver:
+  name: docker
+  provision: true
+  privileged: true
+          
+
+provisioner:
+  name: chef_solo
+  require_chef_omnibus: true
+
+platforms:
+  - name: centos-7.5
+    driver_config:
+      image: 899991151204.dkr.ecr.us-east-1.amazonaws.com/coupa-base:5.1
+      platform: rhel
+      run_command: /usr/sbin/init # Start systemd as root process
+
+suites:
+  - name: default
+    run_list:
+      - recipe[collectd::default]
+    attributes:
