@@ -44,26 +44,26 @@ end
 directory node[:collectd][:conf_dir] do
   owner "root"
   group "root"
-  mode "755"
+  mode "750"
 end
 
 directory node[:collectd][:plugin_conf_dir]  do
   owner "root"
   group "root"
-  mode "755"
+  mode "750"
 end
 
 directory node[:collectd][:base_dir] do
   owner "root"
   group "root"
-  mode "755"
+  mode "750"
   recursive true
 end
 
 directory node[:collectd][:plugin_dir] do
   owner "root"
   group "root"
-  mode "755"
+  mode "750"
   recursive true
 end
 
